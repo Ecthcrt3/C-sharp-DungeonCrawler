@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DungeonLibrary
 {
+    /// <summary>
+    /// Simulates rolling different types of dice d4 - d100
+    /// </summary>
     public class Roll
     {
         Random rand = new Random();
