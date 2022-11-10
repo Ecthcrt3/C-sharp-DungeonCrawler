@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon", "Dungeon\Dungeon.csproj", "{FFC52638-104F-4C69-B5BD-801F69BA1FBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterLibrary", "CharacterLibrary\CharacterLibrary.csproj", "{F55A2D07-C4F8-42F2-953E-9991E5B5A4C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DungeonLibrary", "CharacterLibrary\DungeonLibrary.csproj", "{F55A2D07-C4F8-42F2-953E-9991E5B5A4C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
