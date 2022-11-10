@@ -41,7 +41,7 @@
         public override string ToString()
         {
             //return base.ToString();
-            return $"Name";
+            return ($"Name: {Name}\nMax HP: {MaxHealth}\nStats:\nStr: {Strength}\nDex: {Dexterity}\nCon: {Constitution}\nInt: {Intellegence}\nWis: {Wisdom}\nCha: {Charisma}\nStatus: " + (IsAlive?"Alive":"Dead"));
         }
 
         public static Player CreateCharacter()
