@@ -11,10 +11,10 @@
             do
             {
                 #region Character Creation
-                //TODO: character creation ()
+                
+                #endregion
                 do
                 {
-                    #endregion
                     Console.WriteLine(GetRoom());
                     //TODO: get monster
                     do
