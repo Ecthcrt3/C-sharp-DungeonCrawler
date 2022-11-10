@@ -8,12 +8,15 @@ namespace Dungeon
         {
             bool isRunning = true;
             string userInput;
-
-            Console.Title = "####### Mines of Mystery#######";
+            Player user;
+            Roll dice = new Roll();
+            Console.SetWindowSize(150, 45);
+            Console.SetBufferSize(150, 45);
+            Console.Title = "####### Mines of Mystery #######";
 
             do
-            {
-                Console.WriteLine("Welcome to the Mines of Mystery,\n" +
+            { 
+               Console.WriteLine( "Welcome to the Mines of Mystery,\n" +
                     "1) Start New Game\n" +
                     "2) Exit Game");
                 userInput = Console.ReadLine();
@@ -21,7 +24,9 @@ namespace Dungeon
                 switch (userInput)
                 {
                     case "1":
+                        user = UIMethods.CreatePlayer(dice);
                         //TODO Start game();
+                        Console.WriteLine(user);
                         break;
                     case "2":
                         Console.WriteLine("Thank you for playing!");
