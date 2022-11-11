@@ -1,4 +1,5 @@
 ﻿using DungeonLibrary;
+using System.ComponentModel;
 
 namespace Dungeon
 {
@@ -14,7 +15,8 @@ namespace Dungeon
             Console.SetBufferSize(150, 45);
             Console.Title = "####### Mines of Mystery #######";
             do
-            { 
+            {
+                Console.WriteLine(new Weapon(1,"sword", 12, false, (Dice)4)); 
                Console.WriteLine( "Welcome to the Mines of Mystery,\n" +
                     "1) Start New Game\n" +
                     "2) Exit Game");

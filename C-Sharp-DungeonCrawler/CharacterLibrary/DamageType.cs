@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace DungeonLibrary
 {
-    public enum Dice
+    public enum DamageType
     {
-        d4 = 4,
-        d6 = 6,
-        d10 = 8,
-        d12 = 12,
-        d20 = 20,
-        d100 = 100
+        bludgeoning,
+        piercing,
+        slashing,
+        force,
+        nonlethal
     }
 }
