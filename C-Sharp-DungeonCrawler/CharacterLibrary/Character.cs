@@ -12,6 +12,7 @@
         public byte Wisdom { get; set; }
         public byte Charisma { get; set; }
         public bool IsAlive { get; set; }
+        public byte Level { get; set; }
 
         private byte Attack()
         {
@@ -35,6 +36,7 @@
             Wisdom = stats[4];
             Charisma = stats[5];
             MaxHealth = currentHealth = (byte)(10 + (Constitution - 10) / 2);
+            Level = 1;
             IsAlive = true;
         }
 

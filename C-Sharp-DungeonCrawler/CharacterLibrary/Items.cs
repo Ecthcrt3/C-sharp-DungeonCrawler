@@ -10,11 +10,27 @@ namespace DungeonLibrary
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public int Weight { get; set; }
     }
 
     public class Weapon : Item
     {
-        public Roll Damage { get; set; }
+        private Dice _damageDice;
+        public bool IsTwoHanded { get; set; }
+        public Dice DamageDice { get; set; }
+        public Weapon(int iD, string name, int weight, bool isTwoHanded, Dice damageDice)
+        {
+            ID = iD;
+            Name = name;
+            Weight = weight;
+            IsTwoHanded = isTwoHanded;
+            DamageDice = damageDice;
+        }
+
+        public byte RollDamage()
+        {
+            return (byte)_damageDice.Roll();
+        }
     }
 
     public class Armor : Item

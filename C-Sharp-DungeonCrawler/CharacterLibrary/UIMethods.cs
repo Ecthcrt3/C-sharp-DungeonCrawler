@@ -8,7 +8,7 @@
 
         }
 
-        public static Player CreatePlayer(Roll dice)
+        public static Player CreatePlayer()
         {
             string userInput;
             Console.WriteLine("Please enter your Characters name");
@@ -21,7 +21,7 @@
             {
                 Console.Clear();
                 Random rand = new Random();
-                tempStats[i] =(byte)(dice.D6() + dice.D6() + dice.D6());
+                tempStats[i] =(byte)(Roll.D6() + Roll.D6() + Roll.D6());
             }
             Console.Write("You rolled: ");
             foreach (byte stat in tempStats)
