@@ -8,9 +8,15 @@ namespace DungeonLibrary
 {
     public class Item
     {
-        public int ID { get; set; }
+        //public int ID { get; set; }
         public string Name { get; set; }
         public int Weight { get; set; }
+        public string Description { get; set; }
+
+        public override string ToString()
+        {
+            return $"---{Name}---\n{Weight} pounds\n{Description}";
+        }
     }
 
     public class Weapon : Item
@@ -18,18 +24,22 @@ namespace DungeonLibrary
         private Dice _damageDice;
         public bool IsTwoHanded { get; set; }
         public Dice DamageDice { get; set; }
+        public DamageType DamageType { get; set; }
         public Weapon(int iD, string name, int weight, bool isTwoHanded, Dice damageDice)
         {
-            ID = iD;
             Name = name;
             Weight = weight;
             IsTwoHanded = isTwoHanded;
             DamageDice = damageDice;
         }
 
-        public byte RollDamage()
+        public override string ToString()
         {
-            return (byte)_damageDice.Roll();
+            return $"---{Name}---\n{Weight} pounds\n{DamageDice} {DamageType}\n{Description}";
+        }
+        public int RollDamage()
+        {
+            return 0;
         }
     }
 
@@ -37,4 +47,6 @@ namespace DungeonLibrary
     {
 
     }
+
+    
 }
