@@ -22,6 +22,10 @@
         public byte[] Stats { get; set; }
 
         //Constructors
+        public Character()
+        {
+
+        }
         public Character(string name, byte[] stats)
         {
             this.Stats = new byte[6];

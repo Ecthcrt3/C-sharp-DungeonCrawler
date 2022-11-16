@@ -15,6 +15,10 @@ namespace DungeonClassLibrary
         public int NbrDamageDie { get; set; }
         public Stats DamageModifier { get; set; }
 
+        public Enemy()
+        {
+        }
+
         public Enemy(string name, byte[] stats, double cr, int damageDie, int nbrDamageDie, Stats damageModifier, string description):base(name, stats)
         {
             ChallengeRating = cr;
@@ -26,12 +30,23 @@ namespace DungeonClassLibrary
 
         public override string ToString()
         {
-            return base.ToString();
+            return base.ToString() + $"{ChallengeRating} cr \n" +
+                $"{Description}";
         }
 
         public override int Attack()
         {
             return UI.Roll(20) + Stats[(int)DamageModifier];
+        }
+
+        public override int Damage()
+        {
+            int total = 0;
+            for (int i = 0; i < NbrDamageDie; i++)
+            {
+                total += UI.Roll(DamageDie) + (int)DamageModifier;
+            }
+            return total;
         }
     }
 }
