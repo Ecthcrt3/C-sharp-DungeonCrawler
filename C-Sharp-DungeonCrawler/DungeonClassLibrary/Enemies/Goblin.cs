@@ -12,7 +12,7 @@ namespace DungeonClassLibrary.Enemies
         public bool IsStrong { get; set; }
         public Goblin()
         {
-            Name = "Sentry";
+            Name = "Goblin";
             this.Stats = new byte[] { 8, 14, 10, 10, 8, 8 };
             ChallengeRating = .25;
             DamageDie = 6;

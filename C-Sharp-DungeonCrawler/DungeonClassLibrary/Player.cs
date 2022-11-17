@@ -12,7 +12,7 @@ namespace DungeonClassLibrary
         public Proffessions Proffession { get; set; }
         public List<Item> Inventory {  get; set; }
         public int Level { get; set; }
-
+        public Weapon MainHand { get; set; }
 
         //Ctors
         public Player(string name, byte[]stats, Races race, Proffessions proffession):base(name, stats)
@@ -20,6 +20,8 @@ namespace DungeonClassLibrary
             Race = race;
             Proffession = proffession;
             Level = 1;
+            ProffessionBonus(proffession);
+            RaceBonus(race);
         }
 
 
@@ -38,6 +40,57 @@ namespace DungeonClassLibrary
                 $"Intellegence: {Stats[3]}\n" +
                 $"Wisdom: {Stats[4]}\n" +
                 $"Charisma: {Stats[5]}\n");
+        }
+
+        private void ProffessionBonus(Proffessions proffession)
+        {
+            switch (proffession)
+            {
+                case Proffessions.Fighter:
+                case Proffessions.Paladin:
+                case Proffessions.Bard:
+                    MainHand = new Weapon(001, "Sword", 7, "A shortsword for the new adventurer", 6, false, DamageType.piercing, 1);
+                    break;
+                case Proffessions.Wizard:
+                case Proffessions.Sorcerer:
+                case Proffessions.Warlock:
+                    MainHand = new Weapon(002, "Staff", 6, "A beginer staff to channel spells", 6, false, DamageType.bludgeoning, 1);
+                    break;
+                case Proffessions.Cleric:
+                    MainHand = new Weapon(003, "Mace", 4, "A solid mace carried by new clerics", 6, false, DamageType.bludgeoning, 1);
+                    break;
+                case Proffessions.Rogue:
+                    MainHand = new Weapon(004, "Dagger", 2, "A shortsword for the new adventurer", 4, false, DamageType.piercing, 1);
+                    break;
+                case Proffessions.Barbarian:
+                    MainHand = new Weapon(001, "Axe", 8, "A shortsword for the new adventurer", 8, false, DamageType.slashing, 1);
+                    break;
+            }
+        }
+
+        private void RaceBonus(Races race)
+        {
+            switch (race)
+            {
+                case Races.Dwarf:
+                    break;
+                case Races.Elf:
+                    break;
+                case Races.Halfling:
+                    break;
+                case Races.Human:
+                    break;
+                case Races.Dragonborn:
+                    break;
+                case Races.Gnome:
+                    break;
+                case Races.HalfElf:
+                    break;
+                case Races.HalfOrc:
+                    break;
+                case Races.Tiefling:
+                    break;
+            }
         }
     }
 }
