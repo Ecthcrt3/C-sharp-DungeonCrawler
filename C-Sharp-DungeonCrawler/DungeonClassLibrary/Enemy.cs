@@ -7,7 +7,7 @@ using DungeonMethodLibrary;
 
 namespace DungeonClassLibrary
 {
-    public class Enemy : Character
+    public abstract class Enemy : Character
     {
         public double ChallengeRating { get; set; }
         public string Description { get; set; }

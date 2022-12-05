@@ -10,6 +10,9 @@ namespace DungeonMethodLibrary
             return rand.Next(1, die + 1);
         }
 
+
+       // public static Player
+
         //public static Player CreatePlayer()
         //{
         //    string userInput, name = "";

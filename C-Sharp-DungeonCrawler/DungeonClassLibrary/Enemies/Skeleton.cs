@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonClassLibrary.Enemies
 {
-    public class Skeleton : Enemy
+    public sealed class Skeleton : Enemy
     {
         public bool IsArmored { get; set; }
 
