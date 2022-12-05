@@ -5,6 +5,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>Dungeon.Program</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DungeonClassLibrary\DungeonClassLibrary.csproj" />
+    <ProjectReference Include="..\DungeonMethodLibrary\DungeonMethodLibrary.csproj" />
+  </ItemGroup>
 
 </Project>

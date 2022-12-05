@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonClassLibrary.Enemies
 {
-     public class Wolf : Enemy
+     public sealed class Wolf : Enemy
     {
         public int PackSize { get; set; }
         public Wolf()
@@ -14,6 +14,7 @@ namespace DungeonClassLibrary.Enemies
             Name = "Wolf";
             Stats = new byte[] {12, 15, 12, 3, 12, 6 };
             ChallengeRating = .25;
+            MaxHealth = CurrentHealth = 10;
             DamageDie = 4;
             NbrDamageDie = 2;
             DamageModifier = DungeonClassLibrary.Stats.Dexterity;
