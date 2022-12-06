@@ -17,7 +17,7 @@ namespace DungeonClassLibrary.Enemies
             ChallengeRating = .25;
             DamageDie = 6;
             NbrDamageDie = 1;
-            DamageModifier = DungeonClassLibrary.Stats.Dexterity;
+            DamageModifier = DungeonClassLibrary.StatTypes.Dexterity;
             Description = "A living skelton!";
             IsArmored = false;
         }

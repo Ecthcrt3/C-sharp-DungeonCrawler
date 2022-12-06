@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonClassLibrary
 {
-    public enum Stats
+    public enum StatTypes
     {
         Strength,
         Dexterity,

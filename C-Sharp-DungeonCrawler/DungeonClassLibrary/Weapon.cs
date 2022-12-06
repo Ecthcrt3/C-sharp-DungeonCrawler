@@ -12,13 +12,15 @@ namespace DungeonClassLibrary
         public bool IsTwoHanded { get; set; }
         public DamageType Type { get; set; }
         public int NbrDamageDie { get; set; }
+        public StatTypes DmgModifier { get; set; }
 
-        public Weapon(int id, string name, int weight, string description, int damageDie, bool isTwoHanded, DamageType type, int nbrDamageDie) : base(id, name, weight, description)
+        public Weapon(int id, string name, int weight, string description, int damageDie, bool isTwoHanded, DamageType type, int nbrDamageDie, StatTypes dmgModifier) : base(id, name, weight, description)
         {
             DamageDie = damageDie;
             IsTwoHanded = isTwoHanded;
             Type = type;
             NbrDamageDie = nbrDamageDie;
+            DmgModifier = dmgModifier;
         }
 
         public override string ToString()

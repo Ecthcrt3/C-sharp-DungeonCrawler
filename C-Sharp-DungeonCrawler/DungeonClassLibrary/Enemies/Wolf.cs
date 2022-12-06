@@ -14,13 +14,16 @@ namespace DungeonClassLibrary.Enemies
             Name = "Wolf";
             Stats = new byte[] {12, 15, 12, 3, 12, 6 };
             ChallengeRating = .25;
-            MaxHealth = CurrentHealth = 10;
+            MaxHealth = 10;
+            CurrentHealth = MaxHealth;
             DamageDie = 4;
             NbrDamageDie = 2;
-            DamageModifier = DungeonClassLibrary.Stats.Dexterity;
+            DamageModifier = DungeonClassLibrary.StatTypes.Dexterity;
             Description = "Wild wolf";
             PackSize = 1;
+            ArmorClass = 10;
         }
+
 
     }
 }

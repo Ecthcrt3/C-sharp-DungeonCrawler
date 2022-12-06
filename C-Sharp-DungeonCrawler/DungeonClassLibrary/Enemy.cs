@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DungeonMethodLibrary;
 
 namespace DungeonClassLibrary
 {
@@ -13,13 +12,13 @@ namespace DungeonClassLibrary
         public string Description { get; set; }
         public int DamageDie { get; set; }
         public int NbrDamageDie { get; set; }
-        public Stats DamageModifier { get; set; }
+        public StatTypes DamageModifier { get; set; }
 
         public Enemy()
         {
         }
 
-        public Enemy(string name, byte[] stats, double cr, int damageDie, int nbrDamageDie, Stats damageModifier, string description):base(name, stats)
+        public Enemy(string name, byte[] stats, double cr, int damageDie, int nbrDamageDie, StatTypes damageModifier, string description):base(name, stats)
         {
             ChallengeRating = cr;
             DamageDie = damageDie;
@@ -34,19 +33,19 @@ namespace DungeonClassLibrary
                 $"{Description}";
         }
 
-        public override int Attack()
+        public override int MakeAttack()
         {
-            return UI.Roll(20) + Stats[(int)DamageModifier];
+            return Roll(20) + (Stats[(int)DamageModifier] - 10) / 2;
         }
 
-        public override int Damage()
+        public override int DoDamage()
         {
-            int total = 0;
-            for (int i = 0; i < NbrDamageDie; i++)
+            int dmg = 0;
+            for(int i = 1; i <= NbrDamageDie; i++)
             {
-                total += UI.Roll(DamageDie) + (int)DamageModifier;
+                dmg += Roll(DamageDie);
             }
-            return total;
+            return dmg;
         }
     }
 }

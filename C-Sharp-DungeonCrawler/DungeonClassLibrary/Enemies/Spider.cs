@@ -17,7 +17,7 @@ namespace DungeonClassLibrary.Enemies
             ChallengeRating = 1;
             DamageDie = 8;
             NbrDamageDie = 1;
-            DamageModifier = DungeonClassLibrary.Stats.Dexterity;
+            DamageModifier = DungeonClassLibrary.StatTypes.Dexterity;
             Description = "A giant Spider";
             IsVenemous = false;
         }

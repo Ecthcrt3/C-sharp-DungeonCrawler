@@ -1,6 +1,8 @@
-﻿namespace DungeonClassLibrary
+﻿using DungeonInterfaces;
+
+namespace DungeonClassLibrary
 {
-    public abstract class Character
+    public abstract class Character : ICombatable
     {
         //fields
         private int _currentHealth;
@@ -20,12 +22,14 @@
         }
         public string Name { get; set; }
         public byte[] Stats { get; set; }
+        public byte ArmorClass { get; set; }
 
         //Constructors
         public Character()
         {
-
         }
+
+
         public Character(string name, byte[] stats)
         {
             this.Stats = new byte[6];
@@ -38,6 +42,7 @@
             Stats[5] = stats[5];
             MaxHealth = 10 + (Stats[2]/2-10);
             CurrentHealth = MaxHealth;
+            ArmorClass = 12;
         }
 
 
@@ -61,15 +66,22 @@
                 $"Charisma: {Stats[5]}\n");
         }
 
-        public virtual int Attack()
+        public static int Roll(int die)
         {
-            return 0;
+            Random rand = new Random();
+            return rand.Next(1, die + 1);
         }
 
-        public virtual int Damage()
+        public void TakeDamage(int dmg)
         {
-            return 0;
+            CurrentHealth -= dmg;
         }
 
+        public int GetAC()
+        {
+            return ArmorClass;
+        }
+        public abstract int DoDamage();
+        public abstract int MakeAttack();
     }
 }
