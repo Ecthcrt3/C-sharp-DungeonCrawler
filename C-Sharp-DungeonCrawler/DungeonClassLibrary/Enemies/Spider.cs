@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonClassLibrary.Enemies
 {
-    public class Spider : Enemy
+    public sealed class Spider : Enemy
     {
         public bool IsVenemous { get; set; }
 

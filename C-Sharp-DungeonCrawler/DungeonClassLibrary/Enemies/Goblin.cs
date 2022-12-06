@@ -7,7 +7,7 @@ using DungeonClassLibrary;
 
 namespace DungeonClassLibrary.Enemies
 {
-    public class Goblin : Enemy
+    public sealed class Goblin : Enemy
     {
         public bool IsStrong { get; set; }
         public Goblin()

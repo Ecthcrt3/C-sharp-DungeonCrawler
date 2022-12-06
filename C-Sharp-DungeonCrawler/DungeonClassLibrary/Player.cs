@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonClassLibrary
 {
-    public class Player : Character
+    public sealed class Player : Character
     {
         public Races Race { get; set; }
         public Proffessions Proffession { get; set; }
@@ -15,6 +15,16 @@ namespace DungeonClassLibrary
         public Weapon MainHand { get; set; }
 
         //Ctors
+        public Player(string name)
+        {
+            Name = name;
+            this.Stats = new byte[] { 10,10,10,10,10,10 };
+            MaxHealth = 10 + (Stats[2] / 2 - 10);
+            CurrentHealth = MaxHealth;
+            Level = 1;
+            Race = Races.Dwarf;
+            Proffession = Proffessions.Paladin;
+        }
         public Player(string name, byte[]stats, Races race, Proffessions proffession):base(name, stats)
         {
             Race = race;

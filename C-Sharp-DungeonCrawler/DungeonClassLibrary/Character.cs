@@ -1,6 +1,6 @@
 ﻿namespace DungeonClassLibrary
 {
-    public class Character
+    public abstract class Character
     {
         //fields
         private int _currentHealth;
@@ -45,7 +45,7 @@
         //Methods
         public bool IsAlive()
         {
-            return (CurrentHealth > 0) ? true : false;
+            return (CurrentHealth > 0);
         }
 
         public override string ToString()
