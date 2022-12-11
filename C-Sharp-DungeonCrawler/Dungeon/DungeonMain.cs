@@ -34,8 +34,8 @@ namespace Dungeon
                 user = UI.NewPlayer();
                 do
                 {
-                    Console.WriteLine("Here is the Character you created!\n" + user.ToString());
-                    Console.WriteLine("Are you satisfied with this character?\n Y/N  (press E to quit)");
+                    Console.WriteLine("Here is the Character you created!\n\n" + user.ToString());
+                    Console.WriteLine("\nAre you satisfied with this character?\n Y/N  (press E to quit)");
                     userInput = Console.ReadKey(true).KeyChar.ToString();
                     isValid = true;
                     switch (userInput.ToUpper())
@@ -61,7 +61,7 @@ namespace Dungeon
                             break;
                     }
                 } while (!isValid);
-
+                Console.Clear();
             } while (isCreating);
             #endregion
 
@@ -124,6 +124,11 @@ namespace Dungeon
                                             {
                                                 Console.WriteLine($"You Killed the {enemy.Name} and earned {enemy.XpReward} experience!\n");
                                                 user.Experience += enemy.XpReward;
+                                                if (user.HasLevelUp())
+                                                {
+                                                    Console.WriteLine($"Killing the {enemy.Name} gave you enough xp to level up!\n" +
+                                                        $"you have been healed to full life and gained 10 more Max Health Points!");
+                                                }
                                                 inCombat = false;
                                             }
                                             break;
@@ -151,17 +156,25 @@ namespace Dungeon
                                 }
                                 do
                                 {
-                                    Console.WriteLine($"With the {enemy.Name} dead the room is now safe!\nWhat would you like to do now?\n\n1) Advance to the next room\n2) Rest\n3) Leave");
+                                    Console.WriteLine($"With the {enemy.Name} dead the room is now safe!\nWhat would you like to do now?\n\n1) Advance to the next room\n2) Rest (1 rest per Level)\n3) Leave");
                                     userInput = Console.ReadKey(true).KeyChar.ToString();
                                     Console.Clear();
                                     switch (userInput)
                                     {
                                         case "1":
-                                            Console.WriteLine("\nYou push your luck: ");
+                                            Console.WriteLine("You push your luck: ");
                                             break;
                                         case "2":
-                                            Console.WriteLine("You heal up a bit before advancing to the next rooom. \n");
-                                            user.CurrentHealth += 10;
+                                            if (!user.HasRested)
+                                            {
+                                                Console.WriteLine("You heal up a bit before advancing to the next rooom.");
+                                                user.CurrentHealth += 10;
+                                                user.HasRested = true;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("You have already rested this level, you must level up before resting again");
+                                            }
                                             break;
                                         case "3":
                                             isExploring = false;
