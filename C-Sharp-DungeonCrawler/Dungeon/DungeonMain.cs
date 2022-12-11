@@ -69,7 +69,6 @@ namespace Dungeon
             #region GameLoop
             while (isRunning)
             {
-                    Console.Clear();
                 do
                 {
                     Console.WriteLine($"{user.Name}, you are exploring the forest near your hometown and discover then entrance to a hidden lair with a solid looking door. What do you do?\n" +
@@ -89,14 +88,14 @@ namespace Dungeon
                                 inCombat = true;
                                 while (inCombat)
                                 {
-                                    Console.WriteLine("What would you like to do?\n1) Attack\n2)Run Away\n3)Display Character Stats\n4)Check Enemy Stats\n5)Exit Game");
+                                    Console.WriteLine("What would you like to do?\n1) Attack\n2) Run Away\n3) Display Character Stats\n4) Check Enemy Stats\n5) Exit Game");
                                     userInput = Console.ReadKey(true).KeyChar.ToString();
+                                    Console.Clear();
                                     switch (userInput)
                                     {
                                         case "1":
-                                            if(CombatManager.CalculateHit(user, enemy))
+                                            if (CombatManager.CalculateHit(user, enemy))
                                             {
-                                                Console.Clear();
                                                 Console.WriteLine($"You hit the {enemy.Name} for {CombatManager.CalculateDamage(user, enemy)} points of damage!\n");
                                             }
                                             else
@@ -111,9 +110,9 @@ namespace Dungeon
                                                     if (!user.IsAlive())
                                                     {
                                                         Console.WriteLine("YOU DIED!");
-                                                        isExploring=false;
+                                                        isExploring = false;
                                                         isRunning = false;
-                                                        inCombat=false;
+                                                        inCombat = false;
                                                     }
                                                 }
                                                 else
@@ -129,14 +128,54 @@ namespace Dungeon
                                             }
                                             break;
                                         case "2":
+                                            Console.WriteLine($"You successfully ran away from the {enemy.Name}!");
+                                            inCombat = false;
                                             break;
                                         case "3":
+                                            Console.WriteLine(user);
+                                            break;
                                         case "4":
+                                            Console.WriteLine(enemy);
+                                            break;
                                         case "5":
+                                            inCombat = false;
+                                            isExploring = false;
+                                            isRunning = false;
+                                            break;
                                         default:
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("Input not recognized. . . please try again");
+                                            Console.ResetColor();
                                             break;
                                     }
                                 }
+                                do
+                                {
+                                    Console.WriteLine($"With the {enemy.Name} dead the room is now safe!\nWhat would you like to do now?\n\n1) Advance to the next room\n2) Rest\n3) Leave");
+                                    userInput = Console.ReadKey(true).KeyChar.ToString();
+                                    Console.Clear();
+                                    switch (userInput)
+                                    {
+                                        case "1":
+                                            Console.WriteLine("\nYou push your luck: ");
+                                            break;
+                                        case "2":
+                                            Console.WriteLine("You heal up a bit before advancing to the next rooom. \n");
+                                            user.CurrentHealth += 10;
+                                            break;
+                                        case "3":
+                                            isExploring = false;
+                                            isRunning = false;
+                                            isValid = true;
+                                            break;
+                                        default:
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("Input not recognized. . . please try again\n");
+                                            Console.ResetColor();
+                                            break;
+                                    }
+
+                                } while (!isValid);
                             }
                             break;
                         case "2":
@@ -158,7 +197,17 @@ namespace Dungeon
 
             //This Regions hold the end credits for when the player quits or the character dies
             #region End Credits
+            Console.Clear();
+            if (user.Level == 20)
+            {
+                Console.WriteLine("Congratulations!\nYou Reached Level 20 and cleared the dungeon!\n");
+            }
+            else if (!user.IsAlive())
+            {
+                Console.WriteLine("Better luck Next time. . . \n");
+            }
 
+            Console.WriteLine($"You managed to make it to level {user.Level}!\nThank you for Playing!\n");
             #endregion
         }//End Main
     }//End Class
