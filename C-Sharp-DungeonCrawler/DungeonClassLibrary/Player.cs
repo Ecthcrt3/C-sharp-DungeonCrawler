@@ -16,23 +16,28 @@ namespace DungeonClassLibrary
         public byte Level { get; set; }
         public int Experience { get; set; }
         public bool HasRested { get; set; }
-
+        public Races Race { get; set; }
+        public int ProficiencyBonus { get; set; }
 
         //ctors
-        public Player(string name, byte armorClass, byte[] mainStats) : base(name, armorClass, mainStats)
+        public Player(string name, byte armorClass, byte[] mainStats, Races race) : base(name, armorClass, mainStats)
         {
             Level = 1;
             Experience = 0;
             MaxHealth = 10 + mainStats[2];
             CurrentHealth = 10;
+            CalculateProficiencyBonus();
             HasRested = false;
+            Race = race;
+            RacialBonus();
+
         }
 
 
         //methods
         public override string ToString()
         {
-            return base.ToString() + $"\nLevel: {Level}\n{(HasRested ? "Has rested this level" : "Has not rested this level")} \n\nMain Stats\n-----------------" +
+            return base.ToString() + $"\nLevel: {Level}\n{Race}\n{(HasRested ? "Has rested this level" : "Has not rested this level")} \n\nMain Stats\n-----------------" +
                 $"\nStrength - {MainStats[0]}" +
                 $"\nDexterity - {MainStats[1]}" +
                 $"\nConstitution - {MainStats[2]}" +
@@ -43,12 +48,12 @@ namespace DungeonClassLibrary
 
         public override int MakeAttack()
         {
-            return Roll(20) + MainStats[0];
+            return Roll(20) + Modifier(MainStats[0]) + ProficiencyBonus;
         }
 
         public override int DoDamage()
         {
-            return Roll(8) + MainStats[0];
+            return Roll(8) + Modifier(MainStats[0]);
         }
 
         public bool HasLevelUp()
@@ -179,5 +184,52 @@ namespace DungeonClassLibrary
             HasRested = false;
         }
 
+        private void RacialBonus()
+        {
+            switch (Race)
+            {
+                case Races.Dwarf:
+                    MainStats[2] += 2;
+                    break;
+                case Races.Elf:
+                    MainStats[2] += 2;
+                    break;
+                case Races.Halfling:
+                    MainStats[2] += 2;
+                    break;
+                case Races.Human:
+                    for (int i = 0; i < 6; i++)
+                    {
+                        MainStats[i]++;
+                    }
+                    break;
+                case Races.Dragonborn:
+                    MainStats[0] += 2;
+                    MainStats[5]++;
+                    break;
+                case Races.Gnome:
+                    MainStats[3] += 2;
+                    break;
+                case Races.HalfElf:
+                    MainStats[5] += 2;
+                    MainStats[0]++; ;
+                    MainStats[2]++;
+                    break;
+                case Races.HalfOrc:
+                    MainStats[0] += 2;
+                    MainStats[2]++;
+                    break;
+                case Races.Tiefling:
+                    MainStats[5] += 2;
+                    MainStats[3]++;
+                    break;
+            }
+
+        }
+        private void CalculateProficiencyBonus()
+        {
+            ProficiencyBonus = (int)Math.Ceiling((double)Level / 4) + 1;
+        }
+        
     }//End Class
 }//End Namespace

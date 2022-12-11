@@ -23,6 +23,13 @@ namespace DungeonClassLibrary
         }
 
         //methods
+        public void LevelScaling(int level)
+        {
+            double multiplier = (double)level/ChallengeRating;
+            MaxHealth = (int)Math.Ceiling((double)MaxHealth * multiplier);
+            CurrentHealth = MaxHealth;
+            XpReward = (int)Math.Ceiling((double)XpReward * multiplier);
+        }
         public override int MakeAttack()
         {
             return Roll(20) + MainStats[0];

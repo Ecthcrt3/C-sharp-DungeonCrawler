@@ -83,7 +83,7 @@ namespace Dungeon
                             while (isExploring)
                             {
                                 currentRoom = Room.RandomRoom();
-                                enemy = UI.RandomEnemy();
+                                enemy = UI.RandomEnemy(user.Level);
                                 Console.WriteLine($"You open the door and enter a {currentRoom}\nBetween you and the door you see a {enemy.Name}\n");
                                 inCombat = true;
                                 while (inCombat)
@@ -109,7 +109,6 @@ namespace Dungeon
                                                     Console.WriteLine($"The {enemy.Name} attacked you and did {CombatManager.CalculateDamage(enemy, user)} points of damage!\n");
                                                     if (!user.IsAlive())
                                                     {
-                                                        Console.WriteLine("YOU DIED!");
                                                         isExploring = false;
                                                         isRunning = false;
                                                         inCombat = false;
@@ -154,41 +153,44 @@ namespace Dungeon
                                             break;
                                     }
                                 }
-                                do
+                                if (user.IsAlive())
                                 {
-                                    Console.WriteLine($"With the {enemy.Name} dead the room is now safe!\nWhat would you like to do now?\n\n1) Advance to the next room\n2) Rest (1 rest per Level)\n3) Leave");
-                                    userInput = Console.ReadKey(true).KeyChar.ToString();
-                                    Console.Clear();
-                                    switch (userInput)
+                                    do
                                     {
-                                        case "1":
-                                            Console.WriteLine("You push your luck: ");
-                                            break;
-                                        case "2":
-                                            if (!user.HasRested)
-                                            {
-                                                Console.WriteLine("You heal up a bit before advancing to the next rooom.");
-                                                user.CurrentHealth += 10;
-                                                user.HasRested = true;
-                                            }
-                                            else
-                                            {
-                                                Console.WriteLine("You have already rested this level, you must level up before resting again");
-                                            }
-                                            break;
-                                        case "3":
-                                            isExploring = false;
-                                            isRunning = false;
-                                            isValid = true;
-                                            break;
-                                        default:
-                                            Console.ForegroundColor = ConsoleColor.Red;
-                                            Console.WriteLine("Input not recognized. . . please try again\n");
-                                            Console.ResetColor();
-                                            break;
-                                    }
+                                        Console.WriteLine($"With the {enemy.Name} dead the room is now safe!\nWhat would you like to do now?\n\n1) Advance to the next room\n2) Rest (1 rest per Level)\n3) Leave");
+                                        userInput = Console.ReadKey(true).KeyChar.ToString();
+                                        Console.Clear();
+                                        switch (userInput)
+                                        {
+                                            case "1":
+                                                Console.WriteLine("You push your luck: ");
+                                                break;
+                                            case "2":
+                                                if (!user.HasRested)
+                                                {
+                                                    Console.WriteLine("You heal up a bit before advancing to the next rooom.");
+                                                    user.CurrentHealth += 10;
+                                                    user.HasRested = true;
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("You have already rested this level, you must level up before resting again");
+                                                }
+                                                break;
+                                            case "3":
+                                                isExploring = false;
+                                                isRunning = false;
+                                                isValid = true;
+                                                break;
+                                            default:
+                                                Console.ForegroundColor = ConsoleColor.Red;
+                                                Console.WriteLine("Input not recognized. . . please try again\n");
+                                                Console.ResetColor();
+                                                break;
+                                        }
 
-                                } while (!isValid);
+                                    } while (!isValid);
+                                }
                             }
                             break;
                         case "2":
@@ -217,7 +219,8 @@ namespace Dungeon
             }
             else if (!user.IsAlive())
             {
-                Console.WriteLine("Better luck Next time. . . \n");
+                Console.WriteLine("YOU DIED!!\nBetter luck Next time. . . \n");
+
             }
 
             Console.WriteLine($"You managed to make it to level {user.Level}!\nThank you for Playing!\n");

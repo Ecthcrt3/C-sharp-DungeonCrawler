@@ -62,7 +62,14 @@ namespace DungeonClassLibrary
             return rand.Next(1, die + 1);
         }
 
-
+        public byte Modifier(byte stat)
+        {
+            if (stat % 2 != 0)
+            {
+                stat--;
+            }
+            return Convert.ToByte((stat - 10) / 2);
+        }
         //Methods needed for the ICombatible interface
         public void TakeDamage(int dmg)
         {

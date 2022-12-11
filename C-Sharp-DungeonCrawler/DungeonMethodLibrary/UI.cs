@@ -15,6 +15,7 @@ namespace DungeonMethodLibrary
         {
             bool isValid = true;
             string name;
+            Races race = Races.Dwarf;
             byte[] stats = new byte[6];
             byte[] rolls = new byte[6];
             int input = 0;
@@ -25,7 +26,35 @@ namespace DungeonMethodLibrary
                 Console.WriteLine("Please enter your Characters Name:\n");
                 name = Console.ReadLine();
                 Console.Clear();
-                Console.WriteLine($"Welcome {name},\nNow you must determine your stats; this is done by rolling 4d6 keeping the highest 3 numbers.\nWe do this six times to get a number for each stat.\n(Press any key to roll your stats!)");
+                do
+                {
+                    isValid = true;
+                    Console.WriteLine("What race is your character?\n" +
+                        "\n1) Dwarf" +
+                        "\n2) Elf" +
+                        "\n3) Halfling" +
+                        "\n4) Human" +
+                        "\n5) Dragonborn" +
+                        "\n6) Gnome" +
+                        "\n7) HalfElf" +
+                        "\n8) HalfOrc" +
+                        "\n9) Tiefling");
+                    if (Int32.TryParse(Console.ReadKey(true).KeyChar.ToString(), out input))
+                    {
+                        race = (Races)input-1;
+                        Console.WriteLine(race);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Input not recognized. . . please try again");
+                        Console.ResetColor();
+                        isValid = false;
+                    }
+                } while (!isValid);
+                Console.Clear();
+                Console.WriteLine($"Welcome {name} the {race},\nNow you must determine your stats; this is done by rolling 4d6 keeping the highest 3 numbers.\nWe do this six times to get a number for each stat.\n(Press any key to roll your stats!)");
                 Console.ReadKey();
                 Console.Clear();
                 Console.Write("Wow look at those rolls!\nYou got: ");
@@ -46,7 +75,7 @@ namespace DungeonMethodLibrary
                 {
                     do
                     {
-                        Console.WriteLine($"The {x} should go to . . . ?\n1) Strength - {stats[0]}\n2) Dexterity - {stats[1]}\n3) Constitution - {stats[2]}\n4) Intellegence - {stats[3]}\n5) Wisdom - {stats[4]}\n6) Charisma - {stats[5]}\n");
+                        Console.WriteLine($"The {x} should go to . . . ?\n\n1) Strength - {stats[0]}\n2) Dexterity - {stats[1]}\n3) Constitution - {stats[2]}\n4) Intellegence - {stats[3]}\n5) Wisdom - {stats[4]}\n6) Charisma - {stats[5]}\n");
                         if (Int32.TryParse(Console.ReadKey(true).KeyChar.ToString(), out input) && input < 7 && input > 0)
                         {
                             if (stats[input - 1] == 0)
@@ -75,17 +104,35 @@ namespace DungeonMethodLibrary
                     } while (!isValid);
                 }
                 ac = 15; //CALC FROM CLASS SELECTION
-                return new Player(name, ac, stats);
+                return new Player(name, ac, stats, race);
             } while (!isValid);
         }
 
-        public static Enemy RandomEnemy()
+        public static Enemy RandomEnemy(int level)
         {
             Random random = new Random();
-
-            Enemy wolf = new Wolf();
-            return wolf;
-
+            Enemy enemy;
+            switch (random.Next(1, 5))
+            {
+                case 1:
+                    enemy = new Goblin();
+                    enemy.LevelScaling(level);
+                    return enemy;
+                case 2:
+                    enemy = new Spider();
+                    enemy.LevelScaling(level);
+                    return enemy;
+                case 3:
+                    enemy = new Skeleton();
+                    enemy.LevelScaling(level);
+                    return enemy;
+                case 4:
+                    enemy = new Wolf();
+                    enemy.LevelScaling(level);
+                    return enemy;
+                default:
+                    return null;
+            }
         }
     }
 }

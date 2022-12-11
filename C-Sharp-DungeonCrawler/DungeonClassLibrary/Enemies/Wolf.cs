@@ -14,8 +14,7 @@ namespace DungeonClassLibrary.Enemies
             Name = "Wolf";
             MainStats = new byte[] { 12, 15, 12, 3, 12, 6 };
             ChallengeRating = 1;
-            MaxHealth = 11;
-            CurrentHealth = MaxHealth;
+            MaxHealth = 10;
             PackSize = 1;
             ArmorClass = 13;
             XpReward = 50;
