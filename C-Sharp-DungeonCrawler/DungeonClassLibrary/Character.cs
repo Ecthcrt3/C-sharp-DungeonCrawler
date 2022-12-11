@@ -6,7 +6,6 @@ namespace DungeonClassLibrary
     {
         //fields
         private int _currentHealth;
-
         //props
         public int MaxHealth { get; set; }
         public int CurrentHealth
@@ -15,73 +14,68 @@ namespace DungeonClassLibrary
             set
             {
                 if (value > MaxHealth)
-                { _currentHealth = MaxHealth; }
+                {
+                    CurrentHealth = MaxHealth;
+                }
                 else
-                { _currentHealth = value; }
+                {
+                    CurrentHealth = value;
+                }
             }
         }
         public string Name { get; set; }
-        public byte[] Stats { get; set; }
         public byte ArmorClass { get; set; }
+        public byte[] MainStats { get; set; }
 
-        //Constructors
-        public Character()
+        //ctors
+        public Character() { }
+
+        public Character(int maxHealth, string name, byte armorClass, byte[] mainStats)
         {
-        }
-
-
-        public Character(string name, byte[] stats)
-        {
-            this.Stats = new byte[6];
-            Name = name;
-            Stats[0] = stats[0];
-            Stats[1] = stats[1];
-            Stats[2] = stats[2];
-            Stats[3] = stats[3];
-            Stats[4] = stats[4];
-            Stats[5] = stats[5];
-            MaxHealth = 10 + (Stats[2]/2-10);
+            MaxHealth = maxHealth;
             CurrentHealth = MaxHealth;
-            ArmorClass = 12;
+            Name = name;
+            ArmorClass = armorClass;
+            MainStats = mainStats;
         }
 
+        //methods
 
-
-        //Methods
         public bool IsAlive()
         {
-            return (CurrentHealth > 0);
+            return CurrentHealth > 0;
         }
 
         public override string ToString()
         {
-            return ($"Name:  {Name}\n" +
-                $"Current Health: {CurrentHealth}/{MaxHealth}\n\n" +
-                $"--Stats--\n" +
-                $"Strength: {Stats[0]}\n" +
-                $"Dexterity: {Stats[1]}\n" +
-                $"Constitution: {Stats[2]}\n" +
-                $"Intellegence: {Stats[3]}\n" +
-                $"Wisdom: {Stats[4]}\n" +
-                $"Charisma: {Stats[5]}\n");
+            return $"Name: {Name}\nCurrent Health: {CurrentHealth}";
         }
 
-        public static int Roll(int die)
+        /// <summary>
+        /// Allows the user to roll a die of any value resulting in a random number from 1 to the size die they rolled
+        /// </summary>
+        /// <param name="die"></param>
+        /// <returns>Random int from 1 - die</returns>
+        public int Roll(int die)
         {
             Random rand = new Random();
             return rand.Next(1, die + 1);
         }
 
+
+        //Methods needed for the ICombatible interface
         public void TakeDamage(int dmg)
         {
             CurrentHealth -= dmg;
         }
 
-        public int GetAC()
+        public byte GetAC()
         {
             return ArmorClass;
         }
-        public abstract int DoDamage();
+
         public abstract int MakeAttack();
-    }
-}
+        public abstract int DoDamage();
+
+    }//End Class
+}//End Namespace
