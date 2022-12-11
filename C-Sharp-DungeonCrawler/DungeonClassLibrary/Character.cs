@@ -13,13 +13,13 @@ namespace DungeonClassLibrary
             get { return _currentHealth; }
             set
             {
-                if (value > MaxHealth)
+                if (value >= MaxHealth)
                 {
-                    CurrentHealth = MaxHealth;
+                    _currentHealth = MaxHealth;
                 }
                 else
                 {
-                    CurrentHealth = value;
+                    _currentHealth = value;
                 }
             }
         }
@@ -30,20 +30,20 @@ namespace DungeonClassLibrary
         //ctors
         public Character() { }
 
-        public Character(int maxHealth, string name, byte armorClass, byte[] mainStats)
+        public Character(string name, byte armorClass, byte[] mainStats)
         {
-            MaxHealth = maxHealth;
-            CurrentHealth = MaxHealth;
             Name = name;
             ArmorClass = armorClass;
             MainStats = mainStats;
+            MaxHealth = 10;
+            CurrentHealth = 10;
         }
 
         //methods
 
         public bool IsAlive()
         {
-            return CurrentHealth > 0;
+            return 1 > 0;
         }
 
         public override string ToString()
