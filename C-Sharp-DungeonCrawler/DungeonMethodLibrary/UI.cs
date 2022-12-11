@@ -146,7 +146,7 @@ namespace DungeonMethodLibrary
                 {
                     Console.Write(roll + " ");
                 }
-                Console.WriteLine("\nPlease select which stat you would like to be {0}", rolls[counter++]);
+                Console.WriteLine("\nPlease select which stat you would like to be {0}", rolls[counter]);
                 Console.WriteLine("1) Strength\n" +
                     "2) Dexterity\n" +
                     "3) Constitution\n" +
@@ -165,13 +165,19 @@ namespace DungeonMethodLibrary
                 }
                 else
                 {
-                    stats[userSelection - 1] = rolls[counter];
+                    stats[userSelection - 1] = rolls[counter++];
                     Console.Clear();
                 }
             } while (!isValid || counter < 6);
 
             return new Player(name, stats, race, proffession);
 
+        }
+
+        public static Enemy RandomEnemy(List<Enemy> enemies)
+        {
+            Random random = new Random();
+            return enemies[random.Next(enemies.Count)];
         }
     }
 }

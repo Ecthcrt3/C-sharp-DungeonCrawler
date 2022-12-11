@@ -13,21 +13,26 @@ namespace DungeonClassLibrary
         public Races Race { get; set; }
         public Proffessions Proffession { get; set; }
         public List<Item> Inventory {  get; set; }
+        public bool[] Levels { get; set; }
         public int Level { get; set; }
         public Weapon MainHand { get; set; }
         public int Proficiency { get; set; }
+        public int Experience { get; set; }
 
         //Ctors
         public Player(string name, byte[]stats, Races race, Proffessions proffession):base(name, stats)
         {
             Race = race;
             Proffession = proffession;
-            Level = 1;
+            Levels = new bool[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+            CalculateLevel(Levels);
             ProffessionBonus(proffession);
             RaceBonus(race);
             MaxHealth = 10 + CalcModifier(Stats[2]);
             CurrentHealth = MaxHealth;
             ArmorClass = 15;
+            Experience = 0;
+            CalculateProficiency();
         }
 
 
@@ -113,8 +118,18 @@ namespace DungeonClassLibrary
             }
         }
 
+        private void CalculateLevel(bool[] levels)
+        {
+            int total = 0;
+            foreach(var level in levels)
+            {
+                if (level) total++;
+            }
+            Level = total;
+        }
         private void CalculateProficiency()
         {
+
             if(Level >=1 || Level <= 4)
             {
                 Proficiency = 1;
@@ -140,6 +155,126 @@ namespace DungeonClassLibrary
         private int CalcModifier(byte stat)
         {
             return (stat - 10) / 2;
+        }
+
+        public void LevelUp(int xp)
+        {
+            if(xp >= 355000 && !Levels[19])
+            {
+                Levels[19] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if(xp >= 305000 && !Levels[18])
+            {
+                Levels[18] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if(xp >= 265000 && !Levels[17])
+            {
+                Levels[17] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if(xp >= 225000 && !Levels[16])
+            {
+                Levels[16] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if(xp >= 195000 && !Levels[15])
+            {
+                Levels[15] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if (xp >= 165000 && !Levels[14])
+            {
+                Levels[14] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if (xp >= 140000 && !Levels[13])
+            {
+                Levels[13] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if (xp >= 120000 && !Levels[12])
+            {
+                Levels[12] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if (xp >= 100000 && !Levels[11])
+            {
+                Levels[11] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if (xp >= 85000 && !Levels[10])
+            {
+                Levels[10] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if(xp >= 64000 && !Levels[9])
+            {
+                Levels[9] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if(xp >= 48000 && !Levels[8])
+            {
+                Levels[8] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if (xp >= 34000 && !Levels[7])
+            {
+                Levels[7] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if (xp >= 23000 && !Levels[6])
+            {
+                Levels[6] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if (xp >= 14000 && !Levels[5])
+            {
+                Levels[5] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if(xp >= 6500 && !Levels[4])
+            {
+                Levels[4] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if(xp >= 2700 && !Levels[3])
+            {
+                Levels[3] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if(xp >= 900 && !Levels[2])
+            {
+                Levels[2] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            else if (xp >= 300 && !Levels[1])
+            {
+                Levels[1] = true;
+                MaxHealth += 10;
+                CurrentHealth += 10;
+            }
+            CalculateLevel(Levels);
+            Console.WriteLine(Level);
         }
     }
 }

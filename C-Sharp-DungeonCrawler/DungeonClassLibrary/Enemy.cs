@@ -13,7 +13,7 @@ namespace DungeonClassLibrary
         public int DamageDie { get; set; }
         public int NbrDamageDie { get; set; }
         public StatTypes DamageModifier { get; set; }
-
+        public int XpReward { get; set; }
         public Enemy()
         {
         }

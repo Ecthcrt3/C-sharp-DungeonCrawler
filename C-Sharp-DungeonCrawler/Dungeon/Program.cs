@@ -21,6 +21,14 @@ namespace Dungeon
             Console.SetWindowSize(150, 45);
             Console.SetBufferSize(150, 45);
             Console.Title = "####### Mines of Mystery #######";
+            #region Enemies
+                List<Enemy> enemies = new List<Enemy>();
+                enemies.Add(new Wolf());
+                enemies.Add(new Goblin());
+                enemies.Add(new Skeleton());
+                enemies.Add(new Spider());
+                
+            #endregion
             do
             {
                 Console.WriteLine("Welcome to the Mines of Mystery,\n" +
@@ -38,17 +46,13 @@ namespace Dungeon
                             Console.Clear();
                             currentRoom = Room.RandomRoom();
                             Console.WriteLine("You have entered a " + currentRoom);
-                            enemy = new Wolf();
+                            enemy = UI.RandomEnemy(enemies);
                             Console.WriteLine("Standing in the middle of the room is a " + enemy.Name);
                             inCombat = true;
                             while (inCombat)
                             {
-                                foreach(var x in user.Stats)
-                                { Console.WriteLine(x); }
-                                Console.WriteLine("Player Health: " + user.CurrentHealth);
-                                Console.WriteLine("Player Health: " + enemy.CurrentHealth);
                                 Console.WriteLine("What would you like to do now?\n");
-                                Console.WriteLine("1) Attack\n2) Run Away");
+                                Console.WriteLine("1) Attack\n2) Run Away\n3)Display Enemy Info\n4)Display Player Info");
                                 userInput = Console.ReadLine();
                                 switch (userInput)
                                 {
@@ -62,6 +66,10 @@ namespace Dungeon
                                         if (!enemy.IsAlive())
                                         {
                                             inCombat = false;
+                                            user.Experience += enemy.XpReward;
+                                            user.LevelUp(user.Experience);
+                                            Console.WriteLine($"You killed the {enemy.Name}!\nYou earned {enemy.XpReward} xp");
+                                            Console.WriteLine(user.Experience);
                                             break;
                                         }
                                         if (CombatManager.CalculateHit(enemy, user))
@@ -81,6 +89,14 @@ namespace Dungeon
                                         Console.Clear();
                                         inCombat = false;
                                         break;
+                                    case "3":
+                                        Console.Clear();
+                                        Console.WriteLine(enemy.ToString());
+                                        break;
+                                    case "4":
+                                        Console.Clear();
+                                        Console.WriteLine(user.ToString());
+                                        break;
                                     default:
                                         Console.Clear();
                                         Console.WriteLine("Input not recognized . . . please try again");
@@ -89,11 +105,7 @@ namespace Dungeon
                             }
                             if (user.IsAlive())
                             {
-                                if (!enemy.IsAlive())
-                                {
-                                    Console.WriteLine($"You killed the {enemy.Name}!");
-                                }
-                                else
+                                if (enemy.IsAlive())
                                 {
                                     Console.WriteLine($"You successfully ran away from the {enemy.Name}!");
                                 }

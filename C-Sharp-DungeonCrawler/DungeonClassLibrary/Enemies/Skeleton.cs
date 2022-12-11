@@ -14,12 +14,16 @@ namespace DungeonClassLibrary.Enemies
         {
             Name = "Skeleton";
             Stats = new byte[] { 10, 14, 15, 6, 8, 5};
-            ChallengeRating = .25;
+            ChallengeRating = 1;
             DamageDie = 6;
             NbrDamageDie = 1;
             DamageModifier = DungeonClassLibrary.StatTypes.Dexterity;
             Description = "A living skelton!";
             IsArmored = false;
+            MaxHealth = 13;
+            CurrentHealth = MaxHealth;
+            ArmorClass = 13;
+            XpReward = 50;
         }
     }
 }
