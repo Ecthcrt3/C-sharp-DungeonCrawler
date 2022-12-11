@@ -1,4 +1,5 @@
 ﻿using DungeonClassLibrary;
+using DungeonClassLibrary.Enemies;
 
 namespace DungeonMethodLibrary
 {
@@ -242,10 +243,13 @@ namespace DungeonMethodLibrary
 
         //}
 
-        public static Enemy RandomEnemy(List<Enemy> enemies)
+        public static Enemy RandomEnemy()
         {
             Random random = new Random();
-            return enemies[random.Next(enemies.Count)];
+
+            Enemy wolf = new Wolf();
+            return wolf;
+
         }
     }
 }

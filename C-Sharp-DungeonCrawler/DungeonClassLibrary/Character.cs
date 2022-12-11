@@ -43,7 +43,7 @@ namespace DungeonClassLibrary
 
         public bool IsAlive()
         {
-            return 1 > 0;
+            return CurrentHealth > 0;
         }
 
         public override string ToString()
