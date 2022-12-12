@@ -10,12 +10,8 @@ namespace DungeonClassLibrary
     {
         Fighter,
         Paladin,
-        Wizard,
-        Bard,
         Cleric,
         Rogue,
-        Warlock,
-        Barbarian,
-        Sorcerer
+        Barbarian
     }
 }

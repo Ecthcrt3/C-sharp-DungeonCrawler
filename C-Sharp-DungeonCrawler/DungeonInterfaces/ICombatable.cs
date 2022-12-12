@@ -4,7 +4,7 @@
     {
         int MakeAttack();
         int DoDamage();
-        int GetAC();
+        byte GetAC();
         void TakeDamage(int dmg);
     }
 }

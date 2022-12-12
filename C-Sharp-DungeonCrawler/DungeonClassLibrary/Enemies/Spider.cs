@@ -13,12 +13,8 @@ namespace DungeonClassLibrary.Enemies
         public Spider()
         {
             Name = "Spider";
-            Stats = new byte[] { 14, 16, 12, 2, 11, 4};
+            MainStats = new byte[] { 14, 16, 12, 2, 11, 4 };
             ChallengeRating = 4;
-            DamageDie = 8;
-            NbrDamageDie = 1;
-            DamageModifier = DungeonClassLibrary.StatTypes.Dexterity;
-            Description = "A giant Spider";
             IsVenemous = false;
             MaxHealth = 26;
             CurrentHealth = MaxHealth;

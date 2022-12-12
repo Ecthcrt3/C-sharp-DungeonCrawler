@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DungeonClassLibrary", "Dung
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DungeonMethodLibrary", "DungeonMethodLibrary\DungeonMethodLibrary.csproj", "{4804BCAB-74EB-494F-B94F-B459C82736B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DungeonInterfaces", "DungeonInterfaces\DungeonInterfaces.csproj", "{53EA6175-5344-4033-8E26-9C618C81FBA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DungeonInterfaces", "DungeonInterfaces\DungeonInterfaces.csproj", "{53EA6175-5344-4033-8E26-9C618C81FBA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DungeonTests", "DungeonTests\DungeonTests.csproj", "{01A0B3E3-3C9B-4513-BE1E-87E01179A809}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{53EA6175-5344-4033-8E26-9C618C81FBA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53EA6175-5344-4033-8E26-9C618C81FBA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53EA6175-5344-4033-8E26-9C618C81FBA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01A0B3E3-3C9B-4513-BE1E-87E01179A809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A0B3E3-3C9B-4513-BE1E-87E01179A809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A0B3E3-3C9B-4513-BE1E-87E01179A809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A0B3E3-3C9B-4513-BE1E-87E01179A809}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

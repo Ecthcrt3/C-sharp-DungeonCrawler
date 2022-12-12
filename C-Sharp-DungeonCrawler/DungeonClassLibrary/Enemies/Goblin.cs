@@ -13,12 +13,8 @@ namespace DungeonClassLibrary.Enemies
         public Goblin()
         {
             Name = "Goblin";
-            this.Stats = new byte[] { 8, 14, 10, 10, 8, 8 };
+            MainStats = new byte[] { 8, 14, 10, 10, 8, 8 };
             ChallengeRating = 1;
-            DamageDie = 6;
-            NbrDamageDie = 1;
-            DamageModifier = DungeonClassLibrary.StatTypes.Dexterity;
-            Description = "Small evil humanoid thats strength lies in numbers";
             MaxHealth = 7;
             CurrentHealth = MaxHealth;
             IsStrong = false;

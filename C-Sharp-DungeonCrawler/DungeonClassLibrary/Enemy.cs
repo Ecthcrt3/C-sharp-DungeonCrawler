@@ -3,49 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DungeonInterfaces;
 
 namespace DungeonClassLibrary
 {
-    public abstract class Enemy : Character
+    public abstract class Enemy : Character , ICombatable
     {
-        public double ChallengeRating { get; set; }
-        public string Description { get; set; }
-        public int DamageDie { get; set; }
-        public int NbrDamageDie { get; set; }
-        public StatTypes DamageModifier { get; set; }
+        //props
+        public byte ChallengeRating { get; set; }
         public int XpReward { get; set; }
-        public Enemy()
+
+        //ctors
+        public Enemy() { }
+
+        public Enemy(string name, byte armorClass, byte[] mainStats, byte challengRating, int xpReward ):base(name, mainStats)
         {
+            ChallengeRating = challengRating;
+            XpReward = xpReward;
+            ArmorClass = armorClass;
         }
 
-        public Enemy(string name, byte[] stats, double cr, int damageDie, int nbrDamageDie, StatTypes damageModifier, string description):base(name, stats)
+        //methods
+        public void LevelScaling(int level)
         {
-            ChallengeRating = cr;
-            DamageDie = damageDie;
-            NbrDamageDie = nbrDamageDie;
-            DamageModifier = damageModifier;
-            Description = description;
+            double multiplier = (double)level/ChallengeRating;
+            MaxHealth = (int)Math.Ceiling((double)MaxHealth * multiplier);
+            CurrentHealth = MaxHealth;
+            XpReward = (int)Math.Ceiling((double)XpReward * multiplier);
         }
-
-        public override string ToString()
-        {
-            return base.ToString() + $"{ChallengeRating} cr \n" +
-                $"{Description}";
-        }
-
         public override int MakeAttack()
         {
-            return Roll(20) + (Stats[(int)DamageModifier] - 10) / 2;
+            return Roll(20) + Modifier(MainStats[1]);
         }
 
         public override int DoDamage()
         {
-            int dmg = 0;
-            for(int i = 1; i <= NbrDamageDie; i++)
-            {
-                dmg += Roll(DamageDie);
-            }
-            return dmg;
+            return Roll(6);
         }
-    }
-}
+    }//End Class
+}//End Namespace
