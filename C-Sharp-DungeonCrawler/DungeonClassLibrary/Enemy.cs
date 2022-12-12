@@ -16,10 +16,11 @@ namespace DungeonClassLibrary
         //ctors
         public Enemy() { }
 
-        public Enemy(string name, byte armorClass, byte[] mainStats, byte challengRating, int xpReward ):base(name, armorClass, mainStats)
+        public Enemy(string name, byte armorClass, byte[] mainStats, byte challengRating, int xpReward ):base(name, mainStats)
         {
             ChallengeRating = challengRating;
             XpReward = xpReward;
+            ArmorClass = armorClass;
         }
 
         //methods
@@ -32,7 +33,7 @@ namespace DungeonClassLibrary
         }
         public override int MakeAttack()
         {
-            return Roll(20) + MainStats[0];
+            return Roll(20) + Modifier(MainStats[1]);
         }
 
         public override int DoDamage()

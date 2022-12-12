@@ -16,6 +16,7 @@ namespace DungeonMethodLibrary
             bool isValid = true;
             string name;
             Races race = Races.Dwarf;
+            Proffessions prof = Proffessions.Fighter;
             byte[] stats = new byte[6];
             byte[] rolls = new byte[6];
             int input = 0;
@@ -39,10 +40,9 @@ namespace DungeonMethodLibrary
                         "\n7) HalfElf" +
                         "\n8) HalfOrc" +
                         "\n9) Tiefling");
-                    if (Int32.TryParse(Console.ReadKey(true).KeyChar.ToString(), out input))
+                    if (Int32.TryParse(Console.ReadKey(true).KeyChar.ToString(), out input) && input > 0 && input < 7)
                     {
-                        race = (Races)input-1;
-                        Console.WriteLine(race);
+                        race = (Races)input - 1;
                     }
                     else
                     {
@@ -54,7 +54,30 @@ namespace DungeonMethodLibrary
                     }
                 } while (!isValid);
                 Console.Clear();
-                Console.WriteLine($"Welcome {name} the {race},\nNow you must determine your stats; this is done by rolling 4d6 keeping the highest 3 numbers.\nWe do this six times to get a number for each stat.\n(Press any key to roll your stats!)");
+                do
+                {
+                    isValid = true;
+                    Console.WriteLine("What Class would you like your character to be?\n" +
+                        "\n1) Fighter" +
+                        "\n2) Paladin" +
+                        "\n3) Cleric" +
+                        "\n4) Rogue" +
+                        "\n5) Barbarian");
+                    if (Int32.TryParse(Console.ReadKey(true).KeyChar.ToString(), out input) && input > 0 && input < 6)
+                    {
+                        prof = (Proffessions)input - 1;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Input not recognized. . . please try again");
+                        Console.ResetColor();
+                        isValid = false;
+                    }
+                } while (!isValid);
+                Console.Clear();
+                Console.WriteLine($"Welcome {name} the {race} {prof},\nNow you must determine your stats; this is done by rolling 4d6 keeping the highest 3 numbers.\nWe do this six times to get a number for each stat.\n(Press any key to roll your stats!)");
                 Console.ReadKey();
                 Console.Clear();
                 Console.Write("Wow look at those rolls!\nYou got: ");
@@ -103,8 +126,7 @@ namespace DungeonMethodLibrary
                         }
                     } while (!isValid);
                 }
-                ac = 15; //CALC FROM CLASS SELECTION
-                return new Player(name, ac, stats, race);
+                return new Player(name, stats, race, prof);
             } while (!isValid);
         }
 
@@ -134,5 +156,17 @@ namespace DungeonMethodLibrary
                     return null;
             }
         }
-    }
+
+        public static  Item ItemDictionary(int id)
+        {
+             Dictionary<int, Item> itemList = new Dictionary<int, Item>();
+            itemList.Add(1, new Weapon("club", "a Basic wooden club", 1, 4, DamageType.bludgeoning, false));
+            itemList.Add(2, new Weapon("Mace", "a steel mace", 1, 6, DamageType.bludgeoning, false));
+            itemList.Add(3, new Weapon("Dagger", "a short iron dagger", 1, 4, DamageType.piercing, false));
+            itemList.Add(4, new Weapon("Sword", "a short 1 handed sword", 1, 6, DamageType.slashing, false));
+            itemList.Add(5, new Weapon("Warhammer", "a large 1 handed hammer", 1, 8, DamageType.bludgeoning, false));
+            return itemList[id];
+        }
+    }//end class
+
 }

@@ -17,20 +17,24 @@ namespace DungeonClassLibrary
         public int Experience { get; set; }
         public bool HasRested { get; set; }
         public Races Race { get; set; }
+        public Proffessions Proffession { get; set; }
         public int ProficiencyBonus { get; set; }
+        public Weapon MainHand { get; set; }
+        public Armor WornArmor { get; set; }
+        public StatTypes AttackModifier { get; set; }
 
         //ctors
-        public Player(string name, byte armorClass, byte[] mainStats, Races race) : base(name, armorClass, mainStats)
+        public Player(string name, byte[] mainStats, Races race, Proffessions proffession) : base(name, mainStats)
         {
             Level = 1;
             Experience = 0;
-            MaxHealth = 10 + mainStats[2];
-            CurrentHealth = 10;
             CalculateProficiencyBonus();
             HasRested = false;
             Race = race;
+            Proffession = proffession;
             RacialBonus();
-
+            ClassPerks();
+            ArmorClass = Convert.ToByte(10 + Modifier(MainStats[1]) + WornArmor.ArmorValue);
         }
 
 
@@ -48,12 +52,51 @@ namespace DungeonClassLibrary
 
         public override int MakeAttack()
         {
-            return Roll(20) + Modifier(MainStats[0]) + ProficiencyBonus;
+            return Roll(20) + Modifier(MainStats[(int)AttackModifier]) + ProficiencyBonus;
         }
 
         public override int DoDamage()
         {
-            return Roll(8) + Modifier(MainStats[0]);
+            int dmg = 0;
+            switch (Proffession)
+            {
+                case Proffessions.Fighter:
+                    for (int i = 1; i <= MainHand.NbrDamageDie * 2; i++)
+                    {
+                        dmg += Roll(MainHand.DamageDie);
+                    }
+                    break;
+                case Proffessions.Paladin:
+                    dmg += Roll(6);
+                    for (int i = 1; i <= MainHand.NbrDamageDie; i++)
+                    {
+                        dmg += Roll(MainHand.DamageDie);
+                    }
+                    break;
+                case Proffessions.Cleric:
+                    for (int i = 1; i <= MainHand.NbrDamageDie; i++)
+                    {
+                        dmg += Roll(MainHand.DamageDie);
+                    }
+                    CurrentHealth += (int)Math.Ceiling((double)dmg / 2);
+                    break;
+                case Proffessions.Rogue:
+                    dmg += Roll(6);
+                    for (int i = 1; i <= MainHand.NbrDamageDie * 2; i++)
+                    {
+                        dmg += Roll(MainHand.DamageDie);
+                    }
+                    break;
+                case Proffessions.Barbarian:
+                    for (int i = 1; i <= MainHand.NbrDamageDie * 2; i++)
+                    {
+                        dmg += Roll(MainHand.DamageDie);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return dmg + Modifier(MainStats[(int)AttackModifier]);
         }
 
         public bool HasLevelUp()
@@ -178,8 +221,27 @@ namespace DungeonClassLibrary
         }
         private void LevelUp()
         {
+            switch (Proffession)
+            {
+                case Proffessions.Fighter:
+                    MaxHealth += 10 + Modifier(MainStats[2]);
+                    break;
+                case Proffessions.Paladin:
+                    MaxHealth += 10 + Modifier(MainStats[2]);
+                    break;
+                case Proffessions.Cleric:
+                    MaxHealth += 8 + Modifier(MainStats[2]);
+                    break;
+                case Proffessions.Rogue:
+                    MaxHealth += 8 + Modifier(MainStats[2]);
+                    break;
+                case Proffessions.Barbarian:
+                    MaxHealth += 12 + Modifier(MainStats[2]);
+                    break;
+                default:
+                    break;
+            }
             Level++;
-            MaxHealth += 10;
             CurrentHealth = MaxHealth;
             HasRested = false;
         }
@@ -226,10 +288,54 @@ namespace DungeonClassLibrary
             }
 
         }
+
+        private void ClassPerks()
+        {
+            switch (Proffession)
+            {
+                case Proffessions.Fighter:
+                    MainHand = new Weapon("Sword", "a short 1 handed sword", 1, 6, DamageType.slashing, false);
+                    WornArmor = new Armor("Chain mail", "A vest of linked chains", 3);
+                    MaxHealth = 10 + Modifier(MainStats[2]);
+                    CurrentHealth = MaxHealth;
+                    AttackModifier = StatTypes.Strength;
+                    break;
+                case Proffessions.Paladin:
+                    MainHand = new Weapon("Warhammer", "a large 1 handed hammer", 1, 8, DamageType.bludgeoning, false);
+                    MaxHealth = 10 + Modifier(MainStats[2]);
+                    WornArmor = new Armor("BreastPlate", "A solid metal chestplate", 4);
+                    CurrentHealth = MaxHealth;
+                    AttackModifier = StatTypes.Strength;
+                    break;
+                case Proffessions.Cleric:
+                    MainHand = new Weapon("Mace", "a steel mace", 1, 6, DamageType.bludgeoning, false);
+                    MaxHealth = 8 + Modifier(MainStats[2]);
+                    WornArmor = new Armor("Chain mail", "A vest of linked chains", 3);
+                    CurrentHealth = MaxHealth;
+                    AttackModifier = StatTypes.Strength;
+                    break;
+                case Proffessions.Rogue:
+                    MainHand = new Weapon("Dagger", "a short iron dagger", 1, 4, DamageType.piercing, false);
+                    MaxHealth = 8 + Modifier(MainStats[2]);
+                    WornArmor = new Armor("Studded Leather", "A vest made out of Leather with studs covering it", 2);
+                    CurrentHealth = MaxHealth;
+                    AttackModifier = StatTypes.Dexterity;
+                    break;
+                case Proffessions.Barbarian:
+                    MainHand = new Weapon("club", "a Basic wooden club", 1, 4, DamageType.bludgeoning, false);
+                    MaxHealth = 12 + Modifier(MainStats[2]);
+                    WornArmor = new Armor("Padded Leather", "A vest made of leather with slight padding", 1);
+                    CurrentHealth = MaxHealth;
+                    AttackModifier = StatTypes.Strength;
+                    break;
+                default:
+                    break;
+            }
+        }
         private void CalculateProficiencyBonus()
         {
             ProficiencyBonus = (int)Math.Ceiling((double)Level / 4) + 1;
         }
-        
+
     }//End Class
 }//End Namespace

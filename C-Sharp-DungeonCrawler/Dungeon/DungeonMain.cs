@@ -116,7 +116,7 @@ namespace Dungeon
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine($"The{enemy.Name} tried to attack you but missed!\n");
+                                                    Console.WriteLine($"The {enemy.Name} tried to attack you but missed!\n");
                                                 }
                                             }
                                             else
@@ -132,8 +132,15 @@ namespace Dungeon
                                             }
                                             break;
                                         case "2":
-                                            Console.WriteLine($"You successfully ran away from the {enemy.Name}!");
-                                            inCombat = false;
+                                            if (user.MainStats[1] > enemy.MainStats[1])
+                                            {
+                                                Console.WriteLine($"You successfully ran away from the {enemy.Name}!");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine($"You ran away but the {enemy.Name} hit you for {CombatManager.CalculateDamage(enemy, user)} when you turned your back!\n");
+                                            }
+                                            inCombat = false;   
                                             break;
                                         case "3":
                                             Console.WriteLine(user);
@@ -157,7 +164,7 @@ namespace Dungeon
                                 {
                                     do
                                     {
-                                        Console.WriteLine($"With the {enemy.Name} dead the room is now safe!\nWhat would you like to do now?\n\n1) Advance to the next room\n2) Rest (1 rest per Level)\n3) Leave");
+                                        Console.WriteLine($"You are now in a safe room.\nWhat would you like to do now?\n\n1) Advance to the next room\n2) Rest (1 rest per Level)\n3) Leave");
                                         userInput = Console.ReadKey(true).KeyChar.ToString();
                                         Console.Clear();
                                         switch (userInput)

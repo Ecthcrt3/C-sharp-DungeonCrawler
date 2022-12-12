@@ -30,10 +30,9 @@ namespace DungeonClassLibrary
         //ctors
         public Character() { }
 
-        public Character(string name, byte armorClass, byte[] mainStats)
+        public Character(string name, byte[] mainStats)
         {
             Name = name;
-            ArmorClass = armorClass;
             MainStats = mainStats;
             MaxHealth = 10;
             CurrentHealth = 10;
